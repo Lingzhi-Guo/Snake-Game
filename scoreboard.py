@@ -9,15 +9,20 @@ class Scoreboard(Turtle):
         self.hideturtle()
         self.color("white")
         self.setposition(0, 230)
-        self.write(f"SCORE: {self.score}", move=False, align="center", font=("Arial", 30, "normal"))
+        with open("high_score.txt", mode="r") as file:
+            self.highscore = int(file.read())
+        self.write(f"SCORE: {self.score}  HIGH SCORE: {self.highscore}", move=False, align="center", font=("Arial", 30, "normal"))
 
     def change_score(self):
         self.clear()
         self.score += 1
-        self.write(f"SCORE: {self.score}", move=False, align="center", font=("Arial", 30, "normal"))
+        self.write(f"SCORE: {self.score}  HIGH SCORE: {self.highscore}", move=False, align="center", font=("Arial", 30, "normal"))
 
-    def end_game(self):
+    def reset(self):
+        if self.score > self.highscore:
+            self.highscore = self.score
+            with open("high_score.txt", mode="w") as file:
+                file.write(f"{self.highscore}")
+        self.score = 0
         self.clear()
-        self.goto(0, 0)
-        self.pencolor("red")
-        self.write(f"GAME OVER\nSCORE: {self.score}", move=False, align="center", font=("Arial", 30, "normal"))
+        self.write(f"SCORE: {self.score}  HIGH SCORE: {self.highscore}", move=False, align="center", font=("Arial", 30, "normal"))

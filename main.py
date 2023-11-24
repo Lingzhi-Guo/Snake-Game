@@ -29,12 +29,14 @@ while game_is_on:
         snake.extend()
         score.change_score()
 
-    if snake.snake_body[0].xcor() > 280 or snake.snake_body[0].xcor() < -280 or snake.snake_body[0].ycor() > 280 or snake.snake_body[0].ycor() < -280:
-        game_is_on = False
+    if snake.snake_body[0].xcor() > 280 or snake.snake_body[0].xcor() < -300 or snake.snake_body[0].ycor() > 280 or snake.snake_body[0].ycor() < -280:
+        score.reset()
+        snake.reset()
 
     for body in snake.snake_body[1:]:
         if snake.snake_body[0].distance(body) < 10:
-            game_is_on = False
+            score.reset()
+            snake.reset()
 
 score.end_game()
 
